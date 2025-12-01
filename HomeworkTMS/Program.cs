@@ -7,170 +7,91 @@ namespace HomeworkTMS
 {
     internal class Program
     {
-        private const string TextExample = "Wow! This is my 1st test. Do you see number42? Yes! " +
-            "\r\nOtto ran to room101. Anna loves level99. " +
-            "\r\nAre you ready? No, I am not! " +
-            "\r\nThis sentence has no comma. But this one, definitely has a comma, right? " +
-            "\r\nHey! Look at Bob — he found 777 coins! " +
-            "\r\nIs 12345 the longest digit-word? Maybe! " +
-            "\r\nOtto said: \"Wow!\" Anna replied: \"Yes!\" " +
-            "\r\nFinal test. Done!";
-
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Console.WriteLine("Демонстрация работы Text Analyzer начата");
+            PhoneTaskDemo();
+            ClinicTaskDemo();
+        }
+
+        static void PhoneTaskDemo()
+        {
+            Phone phone1 = new Phone("375291112233", "Samsung", 150);
+            Phone phone2 = new Phone("375447778899", "iPhone");
+            Phone phone3 = new Phone();
+
+            Console.WriteLine("Демонстрация объектов Phone:");
+            Console.WriteLine($"Телефон 1: номер = {phone1.GetNumber()}");
+            Console.WriteLine($"Телефон 2: номер = {phone2.GetNumber()}");
+            Console.WriteLine($"Телефон 3: номер = {phone3.GetNumber()}");
+
             Console.WriteLine();
 
-            DemonstrateTask1_MaxDigits();
-            DemonstrateTask2_LongestWord();
-            DemonstrateTask3_ReplaceDigits();
-            DemonstrateTask4_QuestionExclamatory();
-            DemonstrateTask5_NoCommas();
-            DemonstrateTask6_StartEndMatch();
-            DemonstrateTask7_SearchByStart();
-            DemonstrateTask8_Palindromes();
+            Console.WriteLine("Демонстрация receiveCall:");
+            phone1.ReceiveCall("Андрей");
+            phone2.ReceiveCall("Мария");
+            phone3.ReceiveCall("Неизвестный");
 
-            Console.WriteLine("Все задачи завершены. Нажмите любую клавишу для выхода.");
+            Console.WriteLine();
+
+            Console.WriteLine("Демонстрация перегруженного receiveCall:");
+            phone1.ReceiveCall("Олег", "375331234567");
+
+            Console.WriteLine();
+
+            Console.WriteLine("Демонстрация sendMessage:");
+            phone1.SendMessage("111", "222", "333", "444");
+
+            Console.WriteLine();
+
+            Console.WriteLine("Для продолжения нажмите Enter...");
             Console.ReadKey();
-        }
-
-
-        private static void DemonstrateTask1_MaxDigits()
-        {
-            ShowTaskHeader("1. Найти слова, содержащие максимальное количество цифр");
-
-            var result = TextAnalyzer.GetWordsWithMaxDigits(TextExample);
-            PrintList(result, "Слова с максимальным количеством цифр:");
-
-            WaitForNextTask();
-        }
-
-        private static void DemonstrateTask2_LongestWord()
-        {
-            ShowTaskHeader("2. Найти самое длинное слово и определить, сколько раз оно встретилось");
-
-            var (words, counts) = TextAnalyzer.GetLongestWordAndCount(TextExample);
-
-            Console.WriteLine("Самые длинные слова:");
-            for (int i = 0; i < words.Count; i++)
-            {
-                Console.WriteLine($" - \"{words[i]}\" (встретилось {counts[i]} раз(а))");
-            }
-
-            WaitForNextTask();
-        }
-
-        private static void DemonstrateTask3_ReplaceDigits()
-        {
-            ShowTaskHeader("3. Заменить цифры 0-9 на слова (ноль, один...)");
-
-            string result = TextAnalyzer.TurnDigitsToWords(TextExample);
-            Console.WriteLine("Обработанный текст:");
-            Console.WriteLine(result);
-
-            WaitForNextTask();
-        }
-
-        private static void DemonstrateTask4_QuestionExclamatory()
-        {
-            ShowTaskHeader("4. Вывести сначала вопросительные, затем восклицательные предложения");
-
-            var sentences = TextAnalyzer.GetQuestionAndExclamatorySentences(TextExample);
-            PrintList(sentences, "Вопросительные и восклицательные предложения:");
-
-            WaitForNextTask();
-        }
-
-        private static void DemonstrateTask5_NoCommas()
-        {
-            ShowTaskHeader("5. Вывести предложения, не содержащие запятых");
-
-            var sentences = TextAnalyzer.GetSentencesWithoutCommas(TextExample);
-            PrintList(sentences, "Предложения без запятых:");
-
-            WaitForNextTask();
-        }
-
-        private static void DemonstrateTask6_StartEndMatch()
-        {
-            ShowTaskHeader("6. Найти слова, начинающиеся и заканчивающиеся на одну и ту же букву");
-
-            var matchingWords = TextAnalyzer.GetWordsWithStartMatchingEnd(TextExample);
-            PrintList(matchingWords.Distinct().ToList(), "Слова с одинаковой первой и последней буквой:");
-
-            WaitForNextTask();
-        }
-
-        private static void DemonstrateTask7_SearchByStart()
-        {
-            ShowTaskHeader("7. Поиск слов по части ввода (начало слова)");
-
-            Console.Write("Введите начало слова для поиска (например, 'te' или 'nu'): ");
-            string input = Console.ReadLine()?.Trim().ToLower();
-
-            if (string.IsNullOrEmpty(input))
-            {
-                Console.WriteLine("Ввод пуст. Поиск пропущен.");
-            }
-            else
-            {
-                var matches = TextAnalyzer.SeekForEntries(TextExample, input);
-
-                if (matches.Any())
-                    PrintList(matches, $"Слова, начинающиеся с '{input}':");
-                else
-                    Console.WriteLine($"Слова, начинающиеся с '{input}', не найдены.");
-            }
-
-            WaitForNextTask();
-        }
-
-        private static void DemonstrateTask8_Palindromes()
-        {
-            ShowTaskHeader("8. Найти палиндромы");
-
-            var palindromes = TextAnalyzer.GetPalindromes(TextExample);
-            PrintList(palindromes.Distinct().ToList(), "Найденные палиндромы:");
-
-            WaitForNextTask(isLast: true);
-        }
-
-        private static void ShowTaskHeader(string title)
-        {
             Console.Clear();
-            Console.WriteLine($"=== {title} ===");
-
-            Console.WriteLine();
-            Console.WriteLine("[Исходный текст]:");
-            Console.WriteLine(TextExample);
-            Console.WriteLine(new string('=', 50));
-            Console.WriteLine();
         }
 
-        private static void WaitForNextTask(bool isLast = false)
+        static void ClinicTaskDemo()
         {
-            Console.WriteLine();
-            Console.WriteLine(new string('-', 50));
-            if (!isLast)
-            {
-                Console.WriteLine("Нажмите любую клавишу для перехода к следующей задаче...");
-                Console.ReadKey();
-            }
-        }
+            Console.WriteLine("=== ПРОГРАММА ИМИТАЦИИ РАБОТЫ КЛИНИКИ ===\n");
 
-        private static void PrintList(IEnumerable<string> items, string header)
-        {
-            Console.WriteLine(header);
-            if (!items.Any())
-            {
-                Console.WriteLine(" (Не найдено)");
-                return;
-            }
+            Clinic clinic = new Clinic();
 
-            foreach (var item in items)
-            {
-                Console.WriteLine($" -> {item}");
-            }
+            Patient patient1 = new Patient("Смирнов Алексей Петрович", 45, "MC-2024-001");
+            Patient patient2 = new Patient("Ковалева Мария Ивановна", 32, "MC-2024-002");
+            Patient patient3 = new Patient("Николаев Дмитрий Сергеевич", 28, "MC-2024-003");
+            Patient patient4 = new Patient("Орлова Екатерина Викторовна", 55, "MC-2024-004");
+
+            TreatmentPlan plan1 = new TreatmentPlan(1, "Аппендицит", "Требуется срочная операция по удалению аппендикса");
+            TreatmentPlan plan2 = new TreatmentPlan(2, "Кариес", "Лечение кариеса на 3-х зубах, профессиональная чистка");
+            TreatmentPlan plan3 = new TreatmentPlan(3, "Грипп", "Острое респираторное вирусное заболевание");
+            TreatmentPlan plan4 = new TreatmentPlan(0, "Общее обследование", "Плановый медицинский осмотр");
+
+            clinic.AddPatient(patient1);
+            clinic.AddPatient(patient2);
+            clinic.AddPatient(patient3);
+            clinic.AddPatient(patient4);
+
+            Console.WriteLine("=== НАЗНАЧЕНИЕ ПЛАНОВ ЛЕЧЕНИЯ ===\n");
+            patient1.AddTreatmentPlan(plan1);
+            patient2.AddTreatmentPlan(plan2);
+            patient3.AddTreatmentPlan(plan3);
+            patient4.AddTreatmentPlan(plan4);
+
+            clinic.DisplayAllPatients();
+
+            clinic.ProcessAllPatients();
+
+            Console.WriteLine("\n=== ДОПОЛНИТЕЛЬНАЯ ДЕМОНСТРАЦИЯ ===\n");
+
+            Patient patient5 = new Patient("Безплановый Пациент", 30, "MC-2024-005");
+            clinic.AddPatient(patient5);
+
+            Console.WriteLine("Демонстрация: пациент без плана лечения");
+            patient5.AssignDoctor();
+
+            Console.WriteLine("Демонстрация: попытка лечения без врача");
+            patient5.PerformTreatment();
+
+            Console.WriteLine("\n=== РАБОТА КЛИНИКИ ЗАВЕРШЕНА ===");
+            Console.ReadKey();
         }
     }
 }
