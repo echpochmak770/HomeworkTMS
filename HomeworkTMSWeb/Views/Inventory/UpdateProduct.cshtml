@@ -1,0 +1,20 @@
+﻿@model HomeworkTMSWeb.Models.Product
+
+@{
+    ViewData["Title"] = "Изменение товара";
+}
+
+<div class="container mt-4">
+    <div class="card shadow mx-auto">
+        <div class="card-header bg-warning text-white text-center">
+            <h4 class="mb-0">Редактирование товара</h4>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Inventory" asp-action="SubmitUpdateProduct" method="post">
+                <input type="hidden" asp-for="Id" />
+                <partial name="_ProductFields" model="Model" />
+                <button type="submit" class="btn btn-warning text-white w-100 mt-3">Сохранить изменения</button>
+            </form>
+        </div>
+    </div>
+</div> 

@@ -1,0 +1,19 @@
+﻿@model HomeworkTMSWeb.Models.Product
+
+@{
+    ViewData["Title"] = "Добавление товара";
+}
+
+<div class="container mt-4">
+    <div class="card shadow mx-auto">
+        <div class="card-header bg-success text-white text-center">
+            <h4 class="mb-0">Новый товар</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="SubmitAddProduct" method="post">
+                <partial name="_ProductFields" />
+                <button type="submit" class="btn btn-success w-100 mt-3">Сохранить товар</button> 
+            </form>
+        </div>
+    </div>
+</div>
