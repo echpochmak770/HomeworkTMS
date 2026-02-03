@@ -1,0 +1,18 @@
+﻿@model HomeworkTMSWeb.Models.Product
+
+<div class="mb-3">
+    <label asp-for="Name" class="form-label">Название</label>
+    <input asp-for="Name" class="form-control" id="productName" />
+</div>
+<div class="mb-3">
+    <label asp-for="Category" class="form-label">Категория</label>
+    <select asp-for="Category" class="form-select" id="productCategory" asp-items="Html.GetEnumSelectList<HomeworkTMSWeb.Enums.ProductCategory>()"></select>
+</div>
+<div class="mb-3">
+    <label asp-for="Price" class="form-label">Цена</label>
+    <input asp-for="Price" class="form-control" type="number" step="0.01" id="productPrice" />
+</div>
+<div class="mb-3">
+    <label asp-for="Quantity" class="form-label">Количество</label>
+    <input asp-for="Quantity" class="form-control" type="number" id="productQuantity" />
+</div>
