@@ -19,11 +19,7 @@ namespace EFCore_Code_First
         public DbSet<MemberContact> MemberContacts { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
 
-        public LibraryDbContext(DbContextOptions options) : base(options)
-        {
-        }
-
-        protected LibraryDbContext()
+        public LibraryDbContext()
         {
         }
 
@@ -206,7 +202,7 @@ namespace EFCore_Code_First
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=localhost.;Database=LibraryDb;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=LibraryDb;Trusted_Connection=True;TrustServerCertificate=True;");
             }
         }
     }
